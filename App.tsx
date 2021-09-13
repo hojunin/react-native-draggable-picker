@@ -7,7 +7,10 @@ const App = () => {
 	return (
 		<View style={styles.container}>
 			<Draggable
-				data={[1, 23, 4, 5]}
+				data={[
+					1, 23, 4, 5, 1, 23, 4, 5, 1, 23, 4, 5, 1, 23, 4, 5, 1, 23,
+					4, 5, 1, 23, 4, 5,
+				]}
 				index={index}
 				setIndex={setIndex}
 				suffix="년"
