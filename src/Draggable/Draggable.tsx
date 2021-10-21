@@ -1,15 +1,15 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
 	View,
 	Text,
 	FlatList,
-	StyleSheet,
 	TouchableOpacity,
 	NativeSyntheticEvent,
 	NativeScrollEvent,
 } from 'react-native';
+import styles from './Draggable.style';
 
-interface SliderPickerProps {
+interface DraggablePickerProps {
 	data: number[];
 	suffix: string;
 	index: number;
@@ -17,21 +17,15 @@ interface SliderPickerProps {
 	disabled?: boolean;
 }
 
-const SliderPicker = (props: SliderPickerProps) => {
+const DraggablePicker = (props: DraggablePickerProps) => {
 	const {data, suffix, index, setIndex, disabled} = props;
 	const ref = useRef<FlatList>(null);
 	const [focusIndex, setFocusIndex] = useState(1);
-	const [functionEnable, setFunctionEnable] = useState(false);
-
-	useEffect(() => {
-		setTimeout(() => {
-			setFunctionEnable(true);
-		}, 500);
-	}, []);
 
 	const onLayoutChanged = () => {
 		ref.current?.scrollToOffset({
 			offset: 50 * index,
+			animated: false,
 		});
 	};
 
@@ -60,8 +54,6 @@ const SliderPicker = (props: SliderPickerProps) => {
 		);
 	};
 	const onScrollAndEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-		if (!functionEnable) return;
-
 		const targetIndex = Math.round(e.nativeEvent.contentOffset.y / 50) + 1;
 		setIndex(targetIndex - 1);
 		setFocusIndex(targetIndex);
@@ -84,7 +76,7 @@ const SliderPicker = (props: SliderPickerProps) => {
 				onScroll={onScrollAndEnd}
 				onScrollEndDrag={onScrollAndEnd}
 				onContentSizeChange={onLayoutChanged}
-				getItemLayout={(data, index) => ({
+				getItemLayout={(_, index) => ({
 					length: 50,
 					offset: 50 * index,
 					index,
@@ -94,28 +86,4 @@ const SliderPicker = (props: SliderPickerProps) => {
 	);
 };
 
-export default SliderPicker;
-
-const styles = StyleSheet.create({
-	container: {
-		height: 150,
-		flex: 1,
-		flexDirection: 'row',
-		alignItems: 'center',
-	},
-	fixedBox: {
-		position: 'absolute',
-		top: 50,
-		bottom: 50,
-		left: 5,
-		right: 5,
-		backgroundColor: '#f8f8f8',
-		borderRadius: 15,
-	},
-	item: {
-		height: 50,
-		alignItems: 'center',
-		justifyContent: 'center',
-		borderRadius: 15,
-	},
-});
+export default DraggablePicker;
