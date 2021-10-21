@@ -6,47 +6,76 @@ import {
 	TouchableOpacity,
 	NativeSyntheticEvent,
 	NativeScrollEvent,
+	TextStyle,
+	ViewStyle,
 } from 'react-native';
 import styles from './Draggable.style';
 
 interface DraggablePickerProps {
 	data: number[];
-	suffix: string;
 	index: number;
 	setIndex: (value: number) => void;
+	suffix?: string;
 	disabled?: boolean;
+	numberOfRow?: 3 | 5;
+	rowHeight?: number;
+	activeFontStyle?: TextStyle;
+	disabledFontStyle?: TextStyle;
+	activeTileStyle?: ViewStyle;
 }
 
 const DraggablePicker = (props: DraggablePickerProps) => {
-	const {data, suffix, index, setIndex, disabled} = props;
-	const ref = useRef<FlatList>(null);
+	const {
+		data,
+		index,
+		setIndex,
+		suffix,
+		disabled = false,
+		numberOfRow = 3,
+		rowHeight = 50,
+		activeFontStyle = {},
+		activeTileStyle = {},
+	} = props;
+	const flatListRef = useRef<FlatList>(null);
 	const [focusIndex, setFocusIndex] = useState(1);
 
 	const onLayoutChanged = () => {
-		ref.current?.scrollToOffset({
-			offset: 50 * index,
+		flatListRef.current?.scrollToOffset({
+			offset: rowHeight * index,
 			animated: false,
 		});
+	};
+
+	const scrollToIndex = (index: number) => {
+		flatListRef.current?.scrollToOffset({
+			offset: rowHeight * (index - 1),
+		});
+	};
+
+	const touchDisabled = (index: number) => {
+		return disabled || index === 0 || index === data.length + 1;
 	};
 
 	const renderItem = ({item, index}: {item?: number; index: number}) => {
 		return (
 			<TouchableOpacity
-				disabled={disabled || index === 0 || index === data.length + 1}
+				disabled={touchDisabled(index)}
 				onPress={() => {
 					setIndex(index - 1);
-					ref.current?.scrollToOffset({offset: 50 * (index - 1)});
+					scrollToIndex(index);
 				}}
-				style={styles.item}>
+				style={[styles.item, {height: rowHeight}]}>
 				{item && (
 					<Text
-						style={{
-							color: disabled
-								? '#aaa'
-								: index === focusIndex
-								? '#0038ff'
-								: '#aaa',
-						}}>
+						style={[
+							{
+								color: disabled
+									? '#aaa'
+									: index === focusIndex
+									? '#0038ff'
+									: '#aaa',
+							},
+						]}>
 						{!!suffix ? `${item} ${suffix}` : item}
 					</Text>
 				)}
@@ -54,16 +83,17 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 		);
 	};
 	const onScrollAndEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-		const targetIndex = Math.round(e.nativeEvent.contentOffset.y / 50) + 1;
+		const targetIndex =
+			Math.round(e.nativeEvent.contentOffset.y / rowHeight) + 1;
 		setIndex(targetIndex - 1);
 		setFocusIndex(targetIndex);
 	};
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.fixedBox} />
+		<View style={[styles.container, {height: rowHeight * numberOfRow}]}>
+			<View style={[styles.fixedBox, activeTileStyle]} />
 			<FlatList
-				ref={ref}
+				ref={flatListRef}
 				showsVerticalScrollIndicator={false}
 				data={[undefined, ...data, undefined]}
 				renderItem={renderItem}
@@ -71,14 +101,14 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 				snapToAlignment="center"
 				scrollEnabled={!disabled}
 				snapToStart={true}
-				snapToInterval={50}
+				snapToInterval={rowHeight}
 				bounces={false}
 				onScroll={onScrollAndEnd}
 				onScrollEndDrag={onScrollAndEnd}
 				onContentSizeChange={onLayoutChanged}
 				getItemLayout={(_, index) => ({
-					length: 50,
-					offset: 50 * index,
+					length: rowHeight,
+					offset: rowHeight * index,
 					index,
 				})}
 			/>

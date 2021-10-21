@@ -2,15 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Button} from 'react-native';
 import styles from './Draggables.style';
 import Draggable from '../Draggable';
-
 interface DraggablesProps {
-	data: PREDICTION_META;
-	getData: (data: PREDICTION_META) => void;
-	closeModal: () => void;
+	data: string[];
+	title?: string;
 }
 
 const Draggables = (props: DraggablesProps) => {
-	const {data, getData, closeModal} = props;
+	const {title = null} = props;
 	const [years, setYears] = useState({});
 	const [months, setMonths] = useState({});
 	const [rounds, setRounds] = useState({});
@@ -20,11 +18,11 @@ const Draggables = (props: DraggablesProps) => {
 
 	return (
 		<View>
-			<View style={styles.container}>
-				<Text style={{fontWeight: 'bold', fontSize: 18}}>
-					회차 변경
-				</Text>
-			</View>
+			{title && (
+				<View style={styles.container}>
+					<Text style={styles.title}>{title}</Text>
+				</View>
+			)}
 			<View style={styles.rowContainer}>
 				<Draggable
 					data={[]}

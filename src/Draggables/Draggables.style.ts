@@ -11,5 +11,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingHorizontal: 20,
 	},
+	title: {fontWeight: 'bold', fontSize: 18},
 });
 export default styles;
