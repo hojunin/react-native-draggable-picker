@@ -1,13 +1,10 @@
 {
 	"name": "react-native-draggable-picker",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"private": false,
 	"scripts": {
-		"android": "react-native run-android",
-		"ios": "react-native run-ios",
-		"start": "react-native start",
-		"test": "jest",
-		"lint": "eslint ."
+		"build": "tsc",
+		"publish": "npm run build && npm version patch && npm publish"
 	},
 	"dependencies": {
 		"react": "17.0.2",

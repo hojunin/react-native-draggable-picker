@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Text, Button} from 'react-native';
 import styles from './Draggables.style';
 import Draggable from '../Draggable';
