@@ -1,6 +1,6 @@
 {
 	"name": "react-native-draggable-picker",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"private": false,
 	"scripts": {
 		"build": "tsc",
@@ -11,6 +11,10 @@
 		"react-native": "0.65.1",
 		"typescript": "^4.4.3"
 	},
+	"files": [
+		"dist/&.js",
+		"dist/**/&.js"
+	],
 	"devDependencies": {
 		"@babel/core": "^7.15.5",
 		"@babel/runtime": "^7.15.4",
