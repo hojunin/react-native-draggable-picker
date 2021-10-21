@@ -12,8 +12,10 @@
 		"typescript": "^4.4.3"
 	},
 	"files": [
-		"dist/&.js",
-		"dist/**/&.js"
+		"dist/**/.ts",
+		"dist/**/.js",
+		"dist/**/*.map",
+		"dist/"
 	],
 	"devDependencies": {
 		"@babel/core": "^7.15.5",
