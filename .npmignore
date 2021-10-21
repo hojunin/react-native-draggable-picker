@@ -1,2 +1,14 @@
+#npm
 node_modules
+#git
 .github
+.git
+#test
+__test__
+.buckconfig
+.editorconfig
+.flowconfig
+#dev
+.prettierrc
+tsconfig.json
+

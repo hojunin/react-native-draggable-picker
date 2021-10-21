@@ -99,13 +99,19 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 
 	return (
 		<View style={[styles.container, {height: rowHeight * numberOfRow}]}>
-			<View style={[styles.fixedBox, activeTileStyle]} />
+			<View
+				style={[
+					styles.fixedBox,
+					activeTileStyle,
+					{top: rowHeight, bottom: rowHeight},
+				]}
+			/>
 			<FlatList
 				ref={flatListRef}
 				showsVerticalScrollIndicator={false}
 				data={[undefined, ...data, undefined]}
 				renderItem={renderItem}
-				keyExtractor={(item, index) => index.toString()}
+				keyExtractor={(_, index) => index.toString()}
 				snapToAlignment="center"
 				scrollEnabled={!disabled}
 				snapToStart={true}

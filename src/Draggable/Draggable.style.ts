@@ -8,8 +8,6 @@ const styles = StyleSheet.create({
 	},
 	fixedBox: {
 		position: 'absolute',
-		top: 50,
-		bottom: 50,
 		left: 5,
 		right: 5,
 		backgroundColor: '#f8f8f8',

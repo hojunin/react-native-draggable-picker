@@ -9,12 +9,6 @@ interface DraggablesProps {
 
 const Draggables = (props: DraggablesProps) => {
 	const {title = null} = props;
-	const [years, setYears] = useState({});
-	const [months, setMonths] = useState({});
-	const [rounds, setRounds] = useState({});
-	const [currentYear, setCurrentYear] = useState(-1);
-	const [currentMonth, setCurrentMonth] = useState(-1);
-	const [currentRound, setCurrentRound] = useState(-1);
 
 	return (
 		<View>
@@ -27,7 +21,7 @@ const Draggables = (props: DraggablesProps) => {
 				<Draggable
 					data={[]}
 					suffix={'년'}
-					index={currentYear}
+					index={1}
 					setIndex={(index: number) => {}}
 				/>
 			</View>
