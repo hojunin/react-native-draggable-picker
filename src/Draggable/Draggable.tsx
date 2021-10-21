@@ -19,8 +19,9 @@ interface DraggablePickerProps {
 	disabled?: boolean;
 	numberOfRow?: 3 | 5;
 	rowHeight?: number;
-	activeFontStyle?: TextStyle;
-	disabledFontStyle?: TextStyle;
+	activeFontColor?: string;
+	disabledFontColor?: string;
+	fontStyle?: TextStyle;
 	activeTileStyle?: ViewStyle;
 }
 
@@ -33,7 +34,9 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 		disabled = false,
 		numberOfRow = 3,
 		rowHeight = 50,
-		activeFontStyle = {},
+		activeFontColor = 'black',
+		disabledFontColor = '#aaa',
+		fontStyle = {},
 		activeTileStyle = {},
 	} = props;
 	const flatListRef = useRef<FlatList>(null);
@@ -56,6 +59,10 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 		return disabled || index === 0 || index === data.length + 1;
 	};
 
+	const isActive = (index: number) => {
+		return index === focusIndex;
+	};
+
 	const renderItem = ({item, index}: {item?: number; index: number}) => {
 		return (
 			<TouchableOpacity
@@ -68,12 +75,13 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 				{item && (
 					<Text
 						style={[
+							fontStyle,
 							{
 								color: disabled
-									? '#aaa'
-									: index === focusIndex
-									? '#0038ff'
-									: '#aaa',
+									? disabledFontColor
+									: isActive(index)
+									? activeFontColor
+									: disabledFontColor,
 							},
 						]}>
 						{!!suffix ? `${item} ${suffix}` : item}
