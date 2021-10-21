@@ -14,8 +14,7 @@
 	"files": [
 		"dist/**/.ts",
 		"dist/**/.js",
-		"dist/**/*.map",
-		"dist/"
+		"dist/**/*.map"
 	],
 	"devDependencies": {
 		"@babel/core": "^7.15.5",
