@@ -1,7 +1,13 @@
 {
 	"name": "react-native-draggable-picker",
-	"version": "0.0.16",
+	"version": "0.0.18",
 	"private": false,
+	"author": {
+		"name": "hojunin",
+		"email": "dlsghwns12@gmail.com",
+		"url": "https://hjinn.notion.site/9b036ea279d04498ba907620e641c475"
+	},
+	"license": "MIT",
 	"scripts": {
 		"build": "tsc",
 		"publish": "npm run build && npm publish"
@@ -36,7 +42,7 @@
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hojunin/react-native-draggable-picker.git"
+		"url": "https://github.com/hojunin/react-native-draggable-picker.git"
 	},
 	"keywords": [
 		"draggablepicker",
@@ -51,8 +57,6 @@
 		"react-native",
 		"react-native-draggable-picker"
 	],
-	"author": "dlsghwns12@gmail.com",
-	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/hojunin/react-native-draggable-picker/issues"
 	},

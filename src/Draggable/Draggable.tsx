@@ -9,6 +9,7 @@ import {
 	TextStyle,
 	ViewStyle,
 } from 'react-native';
+import {DEFAULT_ROW_COUNT, DEFAULT_ROW_HEIGHT} from '.';
 import styles from './Draggable.style';
 
 interface DraggablePickerProps {
@@ -32,13 +33,14 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 		setIndex,
 		suffix,
 		disabled = false,
-		numberOfRow = 3,
-		rowHeight = 50,
+		numberOfRow = DEFAULT_ROW_COUNT,
+		rowHeight = DEFAULT_ROW_HEIGHT,
 		activeFontColor = 'black',
 		disabledFontColor = '#aaa',
 		fontStyle = {},
 		activeTileStyle = {},
 	} = props;
+
 	const flatListRef = useRef<FlatList>(null);
 	const [focusIndex, setFocusIndex] = useState(1);
 
@@ -97,6 +99,12 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 		setFocusIndex(targetIndex);
 	};
 
+	const getData = () => {
+		return numberOfRow === DEFAULT_ROW_COUNT
+			? [undefined, ...data, undefined]
+			: [undefined, undefined, ...data, undefined, undefined];
+	};
+
 	return (
 		<View style={[styles.container, {height: rowHeight * numberOfRow}]}>
 			<View
@@ -109,7 +117,7 @@ const DraggablePicker = (props: DraggablePickerProps) => {
 			<FlatList
 				ref={flatListRef}
 				showsVerticalScrollIndicator={false}
-				data={[undefined, ...data, undefined]}
+				data={getData()}
 				renderItem={renderItem}
 				keyExtractor={(_, index) => index.toString()}
 				snapToAlignment="center"
